@@ -1,0 +1,8 @@
+{
+  "name": "Arya Higher Secondary School",
+  "description": "Official website for Arya Higher Secondary School featuring digital facilities, gallery, and student ID generation.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
