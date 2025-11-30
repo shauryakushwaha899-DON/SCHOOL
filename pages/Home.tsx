@@ -10,6 +10,20 @@ const Home: React.FC = () => {
     <div className="container mx-auto px-4 pb-12">
       <Hero />
 
+      {/* Motto Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        viewport={{ once: true }}
+        className="text-center py-12 px-4"
+      >
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-playfair italic text-gray-300 max-w-4xl mx-auto leading-relaxed">
+          "Empowering students with knowledge, integrity, and the skills to navigate the future."
+        </h2>
+        <div className="w-24 h-1 bg-yellow-500/50 mx-auto mt-6 rounded-full" />
+      </motion.div>
+
       {/* Principal & Manager Section */}
       <section className="my-16 grid grid-cols-1 md:grid-cols-2 gap-8">
         {[

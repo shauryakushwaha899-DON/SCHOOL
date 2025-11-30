@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from 'react';
 import Cropper from 'cropperjs';
 import { jsPDF } from 'jspdf';
@@ -58,7 +59,8 @@ const ICardGenerator: React.FC = () => {
       return;
     }
 
-    const doc = new jsPDF();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const doc: any = new jsPDF();
     
     // Header
     doc.setFillColor(15, 23, 42); // Dark Blue
@@ -75,20 +77,26 @@ const ICardGenerator: React.FC = () => {
     doc.addImage(formData.photo, 'JPEG', 15, 50, 50, 50);
 
     // Data Table
-    (doc as any).autoTable({
-      startY: 50,
-      margin: { left: 75 },
-      body: [
-        ['Name', formData.name.toUpperCase()],
-        ['Class', formData.class],
-        ["Father's Name", formData.fatherName.toUpperCase()],
-        ['Mobile', formData.mobile],
-        ['Address', formData.address.toUpperCase()]
-      ],
-      theme: 'grid',
-      styles: { fontSize: 12, cellPadding: 3 },
-      columnStyles: { 0: { fontStyle: 'bold', width: 40 } }
-    });
+    // Use optional chaining or casting to avoid TS errors with the imported side-effect library
+    if (doc.autoTable) {
+      doc.autoTable({
+        startY: 50,
+        margin: { left: 75 },
+        body: [
+          ['Name', formData.name.toUpperCase()],
+          ['Class', formData.class],
+          ["Father's Name", formData.fatherName.toUpperCase()],
+          ['Mobile', formData.mobile],
+          ['Address', formData.address.toUpperCase()]
+        ],
+        theme: 'grid',
+        styles: { fontSize: 12, cellPadding: 3 },
+        columnStyles: { 0: { fontStyle: 'bold', width: 40 } }
+      });
+    } else {
+        console.error("AutoTable plugin not found");
+        alert("PDF Generation Error: Plugin not loaded. Please try again.");
+    }
 
     doc.save(`${formData.name.replace(/\s/g, '_')}_ICard.pdf`);
   };
